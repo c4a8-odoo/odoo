@@ -570,7 +570,7 @@ class MailActivity(models.Model):
 
         next_activities = self.env['mail.activity']
         if next_activities_values:
-            next_activities = self.env['mail.activity'].create(next_activities_values)
+            next_activities = self.env['mail.activity'].sudo().create(next_activities_values)
 
         activity_to_keep = self.filtered('activity_type_id.keep_done')
         activity_to_keep.action_archive()
