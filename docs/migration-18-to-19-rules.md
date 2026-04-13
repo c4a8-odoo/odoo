@@ -8,7 +8,7 @@
 ## Categories
 
 - `IMPORT` — Python import changes
-- `MODEL_RENAME` — Model/class renames
+- `MODEL_RENAME` — Model/class naming convention
 - `FIELD_RENAME` — Field renames or type changes
 - `FIELD_REMOVE` — Removed fields
 - `METHOD_RENAME` — Method renames
@@ -168,38 +168,6 @@ from odoo.fields import Command   # preferred in 19.0
 ## RULE_009
 
 **CATEGORY:** `MANIFEST`  
-**TRIGGER:** `'category': 'Inventory/Inventory'`  
-**ACTION:** Update to `'Supply Chain/Inventory'`
-
-```python
-# BEFORE (18.0)
-'category': 'Inventory/Inventory',
-
-# AFTER (19.0)
-'category': 'Supply Chain/Inventory',
-```
-
----
-
-## RULE_010
-
-**CATEGORY:** `MANIFEST`  
-**TRIGGER:** `'category': 'Inventory/Purchase'`  
-**ACTION:** Update to `'Supply Chain/Purchase'`
-
-```python
-# BEFORE (18.0)
-'category': 'Inventory/Purchase',
-
-# AFTER (19.0)
-'category': 'Supply Chain/Purchase',
-```
-
----
-
-## RULE_011
-
-**CATEGORY:** `MANIFEST`  
 **TRIGGER:** `'web.qunit_suite_tests'` in assets  
 **ACTION:** Replace with `'web.assets_unit_tests'` and rename test files to `*.test.js`
 
@@ -220,7 +188,7 @@ from odoo.fields import Command   # preferred in 19.0
 
 ---
 
-## RULE_012
+## RULE_010
 
 **CATEGORY:** `MANIFEST`  
 **TRIGGER:** `'spreadsheet.dependencies'` in assets  
@@ -236,7 +204,7 @@ from odoo.fields import Command   # preferred in 19.0
 
 ---
 
-## RULE_013
+## RULE_011
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `account.account.deprecated` field access  
@@ -260,7 +228,7 @@ self.env['account.account'].search([('active', '=', False)], active_test=False)
 
 ---
 
-## RULE_014
+## RULE_012
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `account.tax.tag.tax_negate` field  
@@ -276,7 +244,7 @@ tag.balance_negate
 
 ---
 
-## RULE_015
+## RULE_013
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `purchase.order.notes` field  
@@ -294,7 +262,7 @@ domain = [('note', '!=', False)]
 
 ---
 
-## RULE_016
+## RULE_014
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `product.pricelist.item.product_uom` field  
@@ -310,7 +278,7 @@ item.product_uom_name
 
 ---
 
-## RULE_017
+## RULE_015
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `stock.move.line.product_packaging_id` or `product_packaging_qty`  
@@ -328,7 +296,7 @@ line.packaging_uom_qty = 3.0
 
 ---
 
-## RULE_018
+## RULE_016
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `account.move.stock_move_id` (Many2one to stock.move)  
@@ -345,7 +313,7 @@ move.stock_move_ids  # One2many
 
 ---
 
-## RULE_019
+## RULE_017
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `uom.uom.factor_inv` field  
@@ -362,7 +330,7 @@ factor_inv = 1.0 / uom.factor if uom.factor else 0.0
 
 ---
 
-## RULE_020
+## RULE_018
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `uom.uom.uom_type` field (values: 'bigger', 'reference', 'smaller')  
@@ -380,7 +348,7 @@ is_reference = not uom.relative_uom_id
 
 ---
 
-## RULE_021
+## RULE_019
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `uom.uom.name` label was 'Unit of Measure' — now 'Unit Name'  
@@ -388,7 +356,7 @@ is_reference = not uom.relative_uom_id
 
 ---
 
-## RULE_022
+## RULE_020
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `product.template.uom_name` label change  
@@ -396,7 +364,7 @@ is_reference = not uom.relative_uom_id
 
 ---
 
-## RULE_023
+## RULE_021
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `sale.order.line.sale_line_warn_msg` moved  
@@ -412,7 +380,7 @@ is_reference = not uom.relative_uom_id
 
 ---
 
-## RULE_024
+## RULE_022
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `product.packaging` model usage  
@@ -436,7 +404,7 @@ self.env['product.packaging'].create({
 
 ---
 
-## RULE_025
+## RULE_023
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `product.template.uom_po_id` field  
@@ -453,7 +421,7 @@ product.uom_po_id  # purchase unit of measure
 
 ---
 
-## RULE_026
+## RULE_024
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `product.template.uom_category_id` field  
@@ -469,7 +437,7 @@ product.uom_id.category_id
 
 ---
 
-## RULE_027
+## RULE_025
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `product.template.packaging_ids` or `product.product.packaging_ids`  
@@ -485,7 +453,7 @@ product.uom_ids  # Many2many of uom.uom used as packagings
 
 ---
 
-## RULE_028
+## RULE_026
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `sale.order.option` model / `sale.order.option_ids`  
@@ -512,7 +480,7 @@ line = self.env['sale.order.line'].create({
 
 ---
 
-## RULE_029
+## RULE_027
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `stock.change.product.qty` wizard usage  
@@ -537,7 +505,7 @@ quant.action_apply_inventory()
 
 ---
 
-## RULE_030
+## RULE_028
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `stock.quant.package` model reference  
@@ -555,7 +523,7 @@ self.env['stock.package']
 
 ---
 
-## RULE_031
+## RULE_029
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `stock.package_level` model reference  
@@ -563,7 +531,7 @@ self.env['stock.package']
 
 ---
 
-## RULE_032
+## RULE_030
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `bus.presence` model usage  
@@ -581,7 +549,7 @@ user.im_status
 
 ---
 
-## RULE_033
+## RULE_031
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `account.move.line.stock_valuation_layer_ids` field  
@@ -599,7 +567,7 @@ self.env['stock.valuation.layer'].search([
 
 ---
 
-## RULE_034
+## RULE_032
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `crm.team.dashboard_graph_data` field or graph methods  
@@ -617,7 +585,7 @@ team._get_dashboard_graph_data()
 
 ---
 
-## RULE_035
+## RULE_033
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `sale.order.message_partner_ids` in security domain  
@@ -633,7 +601,7 @@ team._get_dashboard_graph_data()
 
 ---
 
-## RULE_036
+## RULE_034
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `payment._handle_notification_data(provider_code, notification_data)`  
@@ -651,7 +619,7 @@ def _process(self, provider_code, payment_data):
 
 ---
 
-## RULE_037
+## RULE_035
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `payment.provider._get_removal_domain(provider_code, **kwargs)`  
@@ -667,7 +635,7 @@ def _get_provider_domain(self, provider_code, **kwargs):
 
 ---
 
-## RULE_038
+## RULE_036
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `account_edi_ubl_cii._get_tax_unece_codes(customer, supplier, tax)`  
@@ -683,7 +651,7 @@ def _get_tax_category_code(self, customer, supplier, tax):
 
 ---
 
-## RULE_039
+## RULE_037
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `account_edi._retry_edi_documents_error_hook()`  
@@ -699,7 +667,7 @@ def _retry_edi_documents_error(self):
 
 ---
 
-## RULE_040
+## RULE_038
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `stock_account._stock_account_prepare_anglo_saxon_out_lines_vals()`  
@@ -715,7 +683,7 @@ def _stock_account_prepare_realtime_out_lines_vals(self):
 
 ---
 
-## RULE_041
+## RULE_039
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `mail.thread._get_allowed_message_post_params()`  
@@ -733,7 +701,7 @@ def _get_allowed_message_params(self):
 
 ---
 
-## RULE_042
+## RULE_040
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `mail.thread._get_allowed_message_update_params()`  
@@ -741,24 +709,7 @@ def _get_allowed_message_params(self):
 
 ---
 
-## RULE_043
-
-**CATEGORY:** `METHOD_RENAME`  
-**TRIGGER:** `crm.lead.toggle_active()`  
-**ACTION:** Split into `action_unarchive()` and `action_restore()`
-
-```python
-# BEFORE (18.0)
-lead.toggle_active()
-
-# AFTER (19.0)
-lead.action_unarchive()   # un-archive a lost/archived lead
-lead.action_restore()     # restore (was toggle_active equivalent)
-```
-
----
-
-## RULE_044
+## RULE_041
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `stock._get_domain_locations_new()` return type  
@@ -766,7 +717,7 @@ lead.action_restore()     # restore (was toggle_active equivalent)
 
 ---
 
-## RULE_045
+## RULE_042
 
 **CATEGORY:** `METHOD_RENAME`  
 **TRIGGER:** `analytic._read_group_groupby(groupby_spec, query)`  
@@ -782,23 +733,7 @@ def _read_group_groupby(self, alias: str, groupby_spec: str, query: Query) -> SQ
 
 ---
 
-## RULE_046
-
-**CATEGORY:** `METHOD_RENAME`  
-**TRIGGER:** `account.bank.statement.line.read_group()`  
-**ACTION:** Use `formatted_read_group()` instead
-
-```python
-# BEFORE (18.0)
-records.read_group(domain, fields, groupby, ...)
-
-# AFTER (19.0)
-records.formatted_read_group(domain, groupby, aggregates, ...)
-```
-
----
-
-## RULE_047
+## RULE_043
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_compute_reference_prefix(self, provider_code, separator, **values)`  
@@ -817,7 +752,7 @@ def _compute_reference_prefix(self, separator, **values):
 
 ---
 
-## RULE_048
+## RULE_044
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_setup_provider(self, provider_code)`  
@@ -833,7 +768,7 @@ def _setup_provider(self, provider_code, **kwargs):
 
 ---
 
-## RULE_049
+## RULE_045
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `name_search(self, name='', args=None, ...)`  
@@ -853,7 +788,7 @@ def name_search(self, name='', domain=None, operator='ilike', limit=100):
 
 ---
 
-## RULE_050
+## RULE_046
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_notify_get_recipients_groups(self, message, model_description, msg_vals=None)`  
@@ -871,7 +806,7 @@ def _notify_get_recipients_groups(self, message, model_description, msg_vals=Fal
 
 ---
 
-## RULE_051
+## RULE_047
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_notify_get_recipients(self, message, msg_vals, **kwargs)`  
@@ -887,7 +822,7 @@ def _notify_get_recipients(self, message, msg_vals=False, **kwargs):
 
 ---
 
-## RULE_052
+## RULE_048
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_message_compute_author(self, author_id=None, email_from=None, raise_on_email=True)`  
@@ -903,7 +838,7 @@ def _message_compute_author(self, author_id=None, email_from=None):
 
 ---
 
-## RULE_053
+## RULE_049
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_notify_thread_by_email(self, message, recipients_data, msg_vals=False, ...)`  
@@ -919,7 +854,7 @@ def _notify_thread_by_email(self, message, recipients_data, *, msg_vals=False, .
 
 ---
 
-## RULE_054
+## RULE_050
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_notify_by_email_get_base_mail_values(self, message, additional_values=None)`  
@@ -935,7 +870,7 @@ def _notify_by_email_get_base_mail_values(self, message, recipients_data, additi
 
 ---
 
-## RULE_055
+## RULE_051
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_notify_by_web_push_prepare_payload(self, message, msg_vals=False)`  
@@ -951,7 +886,7 @@ def _notify_by_web_push_prepare_payload(self, message, msg_vals=False, force_rec
 
 ---
 
-## RULE_056
+## RULE_052
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_message_update_content(self, message, body, ...)` (positional)  
@@ -968,7 +903,7 @@ def _message_update_content(self, message, /, *, body, attachment_ids=None, part
 
 ---
 
-## RULE_057
+## RULE_053
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_thread_to_store(self, store, /, *, fields=None, request_list=None)`  
@@ -985,7 +920,7 @@ def _thread_to_store(self, store: Store, fields, *, request_list=None):
 
 ---
 
-## RULE_058
+## RULE_054
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_get_thread_with_access(self, thread_id, mode="read", **kwargs)`  
@@ -1003,7 +938,7 @@ def _get_thread_with_access(self, thread_id, *, mode="read", **kwargs):
 
 ---
 
-## RULE_059
+## RULE_055
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_get_product_catalog_record_lines(self, product_ids, child_field=False, **kwargs)`  
@@ -1019,7 +954,7 @@ def _get_product_catalog_record_lines(self, product_ids, *, section_id=None, **k
 
 ---
 
-## RULE_060
+## RULE_056
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `crm.lead._handle_won_lost(self, vals)`  
@@ -1037,7 +972,7 @@ def _handle_won_lost(self, old_status_by_lead, new_status_by_lead):
 
 ---
 
-## RULE_061
+## RULE_057
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `crm.lead._find_matching_partner(self, email_only=False)`  
@@ -1053,7 +988,7 @@ def _find_matching_partner(self):
 
 ---
 
-## RULE_062
+## RULE_058
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `stock.move._action_confirm(self, merge=True, merge_into=False)`  
@@ -1069,7 +1004,7 @@ def _action_confirm(self, merge=True, merge_into=False, create_proc=True):
 
 ---
 
-## RULE_063
+## RULE_059
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `purchase.order.action_create_invoice(self)`  
@@ -1085,7 +1020,7 @@ def action_create_invoice(self, attachment_ids=False):
 
 ---
 
-## RULE_064
+## RULE_060
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `sale.order._send_order_notification_mail(self, mail_template)`  
@@ -1101,7 +1036,7 @@ def _send_order_notification_mail(self, mail_template, allow_deferred_sending=Tr
 
 ---
 
-## RULE_065
+## RULE_061
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `_field_to_sql(self, alias, fname, query, flush=True)`  
@@ -1117,7 +1052,7 @@ def _field_to_sql(self, alias: str, field_expr: str, query=None) -> SQL:
 
 ---
 
-## RULE_066
+## RULE_062
 
 **CATEGORY:** `SECURITY`  
 **TRIGGER:** `<field name="users" .../>` on `res.groups`  
@@ -1133,23 +1068,7 @@ def _field_to_sql(self, alias: str, field_expr: str, query=None) -> SQL:
 
 ---
 
-## RULE_067
-
-**CATEGORY:** `SECURITY`  
-**TRIGGER:** `<field name="groups_id" .../>` on `res.users`  
-**ACTION:** May need to use `<field name="group_ids" .../>`
-
-```xml
-<!-- BEFORE (18.0) -->
-<field name="groups_id" eval="[(4, ref('module.group_name'))]"/>
-
-<!-- AFTER (19.0) — in some contexts -->
-<field name="group_ids" eval="[(4, ref('module.group_name'))]"/>
-```
-
----
-
-## RULE_068
+## RULE_063
 
 **CATEGORY:** `SECURITY`  
 **TRIGGER:** `model_mail_wizard_invite` in ir.model.access.csv  
@@ -1165,7 +1084,7 @@ access_mail_followers_edit,...,model_mail_followers_edit,...
 
 ---
 
-## RULE_069
+## RULE_064
 
 **CATEGORY:** `SECURITY`  
 **TRIGGER:** `model_mail_resend_message` or `model_mail_resend_partner` in access CSV  
@@ -1173,7 +1092,7 @@ access_mail_followers_edit,...,model_mail_followers_edit,...
 
 ---
 
-## RULE_070
+## RULE_065
 
 **CATEGORY:** `SECURITY`  
 **TRIGGER:** `model_stock_quant_package` in ir.model.access.csv  
@@ -1189,7 +1108,7 @@ access_stock_package_all,...,model_stock_package,base.group_user,1,0,0,0
 
 ---
 
-## RULE_071
+## RULE_066
 
 **CATEGORY:** `SECURITY`  
 **TRIGGER:** `model_stock_change_product_qty` or `model_stock_track_confirmation` in access CSV  
@@ -1197,7 +1116,7 @@ access_stock_package_all,...,model_stock_package,base.group_user,1,0,0,0
 
 ---
 
-## RULE_072
+## RULE_067
 
 **CATEGORY:** `SECURITY`  
 **TRIGGER:** `<record model="ir.module.category" id="base.module_category_accounting_accounting">`  
@@ -1220,22 +1139,7 @@ access_stock_package_all,...,model_stock_package,base.group_user,1,0,0,0
 
 ---
 
-## RULE_073
-
-**CATEGORY:** `XML_ID`  
-**TRIGGER:** `product.action_packaging_view` XML action reference  
-**ACTION:** Packaging view removed — no direct replacement
-
-```xml
-<!-- BEFORE (18.0) -->
-<menuitem action="product.action_packaging_view" .../>
-
-<!-- AFTER (19.0) — removed; use UoM-based approach -->
-```
-
----
-
-## RULE_074
+## RULE_068
 
 **CATEGORY:** `XML_ID`  
 **TRIGGER:** `stock.menu_product_uom_categ_form_action` reference  
@@ -1251,31 +1155,7 @@ access_stock_package_all,...,model_stock_package,base.group_user,1,0,0,0
 
 ---
 
-## RULE_075
-
-**CATEGORY:** `XML_ID`  
-**TRIGGER:** `sale.product_packaging_form_view_sale` or `sale.product_packaging_tree_view_sale`  
-**ACTION:** These views are removed along with `product.packaging`
-
----
-
-## RULE_076
-
-**CATEGORY:** `XML_ID`  
-**TRIGGER:** `product.product_packaging_tree_view` etc.  
-**ACTION:** Removed — product packaging views are gone
-
----
-
-## RULE_077
-
-**CATEGORY:** `XML_ID`  
-**TRIGGER:** `stock.product_packaging_tree_view` etc.  
-**ACTION:** Removed
-
----
-
-## RULE_078
+## RULE_069
 
 **CATEGORY:** `XML_ID`  
 **TRIGGER:** `account.action_move_out_refund_type` action  
@@ -1291,95 +1171,51 @@ action="account.action_move_out_refund_type_non_legacy"
 
 ---
 
-## RULE_079
+## RULE_070
 
 **CATEGORY:** `MODEL_RENAME`  
-**TRIGGER:** `self.env['bus.listener.mixin']` or `_inherit = 'bus.listener.mixin'`  
-**ACTION:** No rename needed — `bus.listener.mixin` still exists, but class was renamed from `BusListenerMixin` to `BusListenerMixin` (Python-class-level only change)
+**TRIGGER:** Any module that subclasses an Odoo model using a short Python class name (e.g. `class Lead(...)`, `class UoM(...)`, `class Channel(...)`)  
+**ACTION:** Rename the Python class to follow the 19.0 UpperCamelCase convention derived from the model's `_name`: replace dots with camel-case word boundaries.
 
----
-
-## RULE_080
-
-**CATEGORY:** `MODEL_RENAME`  
-**TRIGGER:** `self.env['discuss.channel']` (was using Channel class)  
-**ACTION:** Model name unchanged (`discuss.channel`); Python class `Channel` → `DiscussChannel`
+**General Naming Convention (19.0):**  
+In 19.0 Odoo standardised all internal Python class names to a full UpperCamelCase form that mirrors the model's `_name`. The model name (`_name` / `_inherit`) is unchanged; only the Python class identifier needs updating.
 
 ```python
-# No change needed for env usage:
-self.env['discuss.channel']  # still works
+# Rule: replace each dot-separated segment of _name with a capitalised word,
+# concatenate them, and use that as the class name.
+# Examples:
+#   uom.uom             → UomUom
+#   crm.lead            → CrmLead
+#   discuss.channel     → DiscussChannel
+#   product.pricelist   → ProductPricelist
+#   crm.lost.reason     → CrmLostReason
 
-# If subclassing/inheriting in Python:
-# BEFORE
+# BEFORE (18.0) — short or arbitrary class name
+class Lead(models.Model):
+    _inherit = 'crm.lead'
+
+class UoM(models.Model):
+    _inherit = 'uom.uom'
+
 class Channel(models.Model):
     _inherit = 'discuss.channel'
 
-# AFTER
+# AFTER (19.0) — full CamelCase matching _name
+class CrmLead(models.Model):
+    _inherit = 'crm.lead'
+
+class UomUom(models.Model):
+    _inherit = 'uom.uom'
+
 class DiscussChannel(models.Model):
     _inherit = 'discuss.channel'
 ```
 
----
-
-## RULE_081
-
-**CATEGORY:** `MODEL_RENAME`  
-**TRIGGER:** `self.env['crm.lead']` with Lead class  
-**ACTION:** Model name unchanged; Python class `Lead` → `CrmLead`
+**NOTES:** The `_name` / `_inherit` string is **not** changed — only the Python class identifier. This affects `class` declarations in `models/*.py` and any place that references the class by name directly (rare in Odoo, but check `__all__` exports and test fixtures). The ORM `self.env['model.name']` usage is unaffected.
 
 ---
 
-## RULE_082
-
-**CATEGORY:** `MODEL_RENAME`  
-**TRIGGER:** `_name = 'uom.uom'` class was `UoM`  
-**ACTION:** Update Python class name from `UoM` to `UomUom`
-
-```python
-# BEFORE
-class UoM(models.Model):
-    _inherit = 'uom.uom'
-
-# AFTER
-class UomUom(models.Model):
-    _inherit = 'uom.uom'
-```
-
----
-
-## RULE_083
-
-**CATEGORY:** `MODEL_RENAME`  
-**TRIGGER:** `_name = 'product.pricelist'` class was `Pricelist`  
-**ACTION:** Update to `ProductPricelist`
-
----
-
-## RULE_084
-
-**CATEGORY:** `MODEL_RENAME`  
-**TRIGGER:** `_name = 'product.pricelist.item'` class was `PricelistItem`  
-**ACTION:** Update to `ProductPricelistItem`
-
----
-
-## RULE_085
-
-**CATEGORY:** `MODEL_RENAME`  
-**TRIGGER:** `self.env['crm.lost.reason']` / `LostReason` class  
-**ACTION:** Python class renamed to `CrmLostReason`; model name unchanged
-
----
-
-## RULE_086
-
-**CATEGORY:** `MODEL_RENAME`  
-**TRIGGER:** `self.env['purchase.bill.line.match']` / `PurchaseBillMatch` class  
-**ACTION:** Python class renamed to `PurchaseBillLineMatch`; model name unchanged
-
----
-
-## RULE_087
+## RULE_071
 
 **CATEGORY:** `MANIFEST`  
 **TRIGGER:** Asset references to `web/static/src/legacy/scss/*.scss`  
@@ -1398,7 +1234,7 @@ class UomUom(models.Model):
 
 ---
 
-## RULE_088
+## RULE_072
 
 **CATEGORY:** `MANIFEST`  
 **TRIGGER:** `'web.assets_frontend'` with `portal.js`, `portal_sidebar.js` etc.  
@@ -1419,7 +1255,7 @@ class UomUom(models.Model):
 
 ---
 
-## RULE_089
+## RULE_073
 
 **CATEGORY:** `MANIFEST`  
 **TRIGGER:** References to `mail/static/src/utils/common/**/*`  
@@ -1435,7 +1271,7 @@ class UomUom(models.Model):
 
 ---
 
-## RULE_090
+## RULE_074
 
 **CATEGORY:** `MANIFEST`  
 **TRIGGER:** `('include', 'mail.assets_discuss_public')` with specific mail paths  
@@ -1448,7 +1284,7 @@ class UomUom(models.Model):
 
 ---
 
-## RULE_091
+## RULE_075
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `res.config.settings.module_delivery_fedex`  
@@ -1468,7 +1304,7 @@ module_delivery_usps_rest = fields.Boolean("USPS Connector")
 
 ---
 
-## RULE_092
+## RULE_076
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `stock.move.line.product_packaging_quantity` (different from `product_packaging_qty`)  
@@ -1476,7 +1312,7 @@ module_delivery_usps_rest = fields.Boolean("USPS Connector")
 
 ---
 
-## RULE_093
+## RULE_077
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `sale.order.line.sale_line_warn` + `sale_line_warn_msg` on `res.partner`  
@@ -1492,7 +1328,7 @@ partner.sale_line_warn_msg      # text field
 
 ---
 
-## RULE_094
+## RULE_078
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `product.template.uom_name` string label  
@@ -1500,7 +1336,7 @@ partner.sale_line_warn_msg      # text field
 
 ---
 
-## RULE_095
+## RULE_079
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `crm.lead._pls_get_lead_pls_values(self, domain=[])`  
@@ -1516,7 +1352,7 @@ def _pls_get_lead_pls_values(self, domain=None):
 
 ---
 
-## RULE_096
+## RULE_080
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `portal.mixin._get_thread_with_access()` usage with positional `hash`/`pid`/`token`  
@@ -1532,7 +1368,7 @@ thread = model._get_thread_with_access(thread_id, hash=hash_val, pid=pid, token=
 
 ---
 
-## RULE_097
+## RULE_081
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `hr.employee.base` model inheritance  
@@ -1550,7 +1386,7 @@ class MyModel(models.Model):
 
 ---
 
-## RULE_098
+## RULE_082
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `account.move.partner_credit` field  
@@ -1566,7 +1402,7 @@ move.partner_id.credit
 
 ---
 
-## RULE_099
+## RULE_083
 
 **CATEGORY:** `MANIFEST`  
 **TRIGGER:** Reference to `web/static/src/polyfills/clipboard.js`  
@@ -1582,7 +1418,7 @@ move.partner_id.credit
 
 ---
 
-## RULE_100
+## RULE_084
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `sale.order.option_ids` One2many on `sale.order`  
@@ -1598,7 +1434,7 @@ order.order_line.filtered(lambda l: l.is_optional)
 
 ---
 
-## RULE_101
+## RULE_085
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `sale.order.template.sale_order_template_option_ids`  
@@ -1614,7 +1450,7 @@ template.sale_order_template_line_ids.filtered(lambda l: l.is_optional)
 
 ---
 
-## RULE_102
+## RULE_086
 
 **CATEGORY:** `METHOD_SIG`  
 **TRIGGER:** `account_edi_ubl_cii._ubl_add_invoice_delivery_nodes(vals)`  
@@ -1630,7 +1466,7 @@ def _ubl_add_delivery_nodes(self, vals):
 
 ---
 
-## RULE_103
+## RULE_087
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `payment.provider.onboarding.wizard` usage  
@@ -1646,7 +1482,7 @@ provider.action_start_onboarding()
 
 ---
 
-## RULE_104
+## RULE_088
 
 **CATEGORY:** `FIELD_REMOVE`  
 **TRIGGER:** `onboarding.onboarding.step` inheritance in payment modules  
@@ -1654,7 +1490,7 @@ provider.action_start_onboarding()
 
 ---
 
-## RULE_105
+## RULE_089
 
 **CATEGORY:** `FIELD_RENAME`  
 **TRIGGER:** `purchase.order.mail_reminder_confirmed` field  
@@ -1677,38 +1513,92 @@ order.receipt_reminder_email   # reminder setting (stored)
 
 | Rule ID  | Category        | Key Change                                      |
 |----------|-----------------|-------------------------------------------------|
-| RULE_001 | IMPORT          | `osv.expression` → `fields.Domain`             |
-| RULE_002 | IMPORT          | `tools.OrderedSet` → `tools.misc.OrderedSet`   |
-| RULE_004 | MODULE_REMOVE   | `hr_contract` merged into `hr`                  |
-| RULE_005 | MODULE_REMOVE   | `web_editor` → `html_editor` / `html_builder`  |
-| RULE_011 | MANIFEST        | `qunit_suite_tests` → `assets_unit_tests`      |
-| RULE_013 | FIELD_RENAME    | `account.account.deprecated` → `active`        |
-| RULE_014 | FIELD_RENAME    | `account.tax.tag.tax_negate` → `balance_negate`|
-| RULE_015 | FIELD_RENAME    | `purchase.order.notes` → `note`                |
-| RULE_016 | FIELD_RENAME    | `pricelist.item.product_uom` → `product_uom_name` |
-| RULE_017 | FIELD_RENAME    | `stock.move.line` packaging fields             |
-| RULE_018 | FIELD_RENAME    | `account.move.stock_move_id` → `stock_move_ids`|
-| RULE_019 | FIELD_REMOVE    | `uom.uom.factor_inv` removed                   |
-| RULE_020 | FIELD_REMOVE    | `uom.uom.uom_type` removed                     |
-| RULE_024 | FIELD_REMOVE    | `product.packaging` model removed              |
-| RULE_025 | FIELD_REMOVE    | `product.template.uom_po_id` removed           |
-| RULE_028 | FIELD_REMOVE    | `sale.order.option` → `sale.order.line.is_optional` |
-| RULE_029 | FIELD_REMOVE    | `stock.change.product.qty` wizard removed      |
-| RULE_030 | FIELD_REMOVE    | `stock.quant.package` → `stock.package`        |
-| RULE_032 | FIELD_REMOVE    | `bus.presence` → `mail.presence`               |
-| RULE_033 | FIELD_REMOVE    | `account.move.line.stock_valuation_layer_ids` removed |
-| RULE_036 | METHOD_RENAME   | `_handle_notification_data` → `_process`       |
-| RULE_038 | METHOD_RENAME   | `_get_tax_unece_codes` → `_get_tax_category_code` |
-| RULE_040 | METHOD_RENAME   | Anglo-Saxon → realtime in stock_account        |
-| RULE_041 | METHOD_RENAME   | `_get_allowed_message_post_params` → `_get_allowed_message_params` |
-| RULE_047 | METHOD_SIG      | `_compute_reference_prefix` loses `provider_code` |
-| RULE_049 | METHOD_SIG      | `name_search(args=)` → `name_search(domain=)`  |
-| RULE_050 | METHOD_SIG      | `msg_vals=None` → `msg_vals=False` throughout  |
-| RULE_056 | METHOD_SIG      | `_message_update_content` now positional-only first arg |
-| RULE_057 | METHOD_SIG      | `_thread_to_store(fields=None)` → `fields` required |
-| RULE_058 | METHOD_SIG      | `_get_thread_with_access(mode=)` → keyword-only |
-| RULE_066 | SECURITY        | `res.groups.users` → `res.groups.user_ids`     |
-| RULE_068 | SECURITY        | `mail_wizard_invite` → `mail_followers_edit`   |
-| RULE_070 | SECURITY        | `stock.quant.package` → `stock.package` access |
-| RULE_091 | FIELD_RENAME    | Delivery connector fields get `_rest` suffix   |
-| RULE_097 | FIELD_REMOVE    | `hr.employee.base` → `hr.employee`             |
+| RULE_001 | IMPORT          | `from odoo.osv import expression` |
+| RULE_002 | IMPORT          | `from odoo.tools import OrderedSet` |
+| RULE_003 | IMPORT          | `from odoo import Command` |
+| RULE_004 | MODULE_REMOVE   | `'depends': [..., 'hr_contract', ...]` in `__manifes... |
+| RULE_005 | MODULE_REMOVE   | `'depends': [..., 'web_editor', ...]` in `__manifest... |
+| RULE_006 | MODULE_REMOVE   | `'depends': [..., 'account_edi_ubl_cii_tax_extension... |
+| RULE_007 | MODULE_REMOVE   | `'depends': [..., 'auth_totp_mail_enforce', ...]` |
+| RULE_008 | MODULE_REMOVE   | `'depends': [..., 'account_peppol_selfbilling', ...]` |
+| RULE_009 | MANIFEST        | `'web.qunit_suite_tests'` in assets |
+| RULE_010 | MANIFEST        | `'spreadsheet.dependencies'` in assets |
+| RULE_011 | FIELD_RENAME    | `account.account.deprecated` field access |
+| RULE_012 | FIELD_RENAME    | `account.tax.tag.tax_negate` field |
+| RULE_013 | FIELD_RENAME    | `purchase.order.notes` field |
+| RULE_014 | FIELD_RENAME    | `product.pricelist.item.product_uom` field |
+| RULE_015 | FIELD_RENAME    | `stock.move.line.product_packaging_id` or `product_p... |
+| RULE_016 | FIELD_RENAME    | `account.move.stock_move_id` (Many2one to stock.move) |
+| RULE_017 | FIELD_RENAME    | `uom.uom.factor_inv` field |
+| RULE_018 | FIELD_RENAME    | `uom.uom.uom_type` field (values: 'bigger', 'referen... |
+| RULE_019 | FIELD_RENAME    | `uom.uom.name` label was 'Unit of Measure' — now 'Un... |
+| RULE_020 | FIELD_RENAME    | `product.template.uom_name` label change |
+| RULE_021 | FIELD_RENAME    | `sale.order.line.sale_line_warn_msg` moved |
+| RULE_022 | FIELD_REMOVE    | `product.packaging` model usage |
+| RULE_023 | FIELD_REMOVE    | `product.template.uom_po_id` field |
+| RULE_024 | FIELD_REMOVE    | `product.template.uom_category_id` field |
+| RULE_025 | FIELD_REMOVE    | `product.template.packaging_ids` or `product.product... |
+| RULE_026 | FIELD_REMOVE    | `sale.order.option` model / `sale.order.option_ids` |
+| RULE_027 | FIELD_REMOVE    | `stock.change.product.qty` wizard usage |
+| RULE_028 | FIELD_REMOVE    | `stock.quant.package` model reference |
+| RULE_029 | FIELD_REMOVE    | `stock.package_level` model reference |
+| RULE_030 | FIELD_REMOVE    | `bus.presence` model usage |
+| RULE_031 | FIELD_REMOVE    | `account.move.line.stock_valuation_layer_ids` field |
+| RULE_032 | FIELD_REMOVE    | `crm.team.dashboard_graph_data` field or graph methods |
+| RULE_033 | FIELD_REMOVE    | `sale.order.message_partner_ids` in security domain |
+| RULE_034 | METHOD_RENAME   | `payment._handle_notification_data(provider_code, no... |
+| RULE_035 | METHOD_RENAME   | `payment.provider._get_removal_domain(provider_code,... |
+| RULE_036 | METHOD_RENAME   | `account_edi_ubl_cii._get_tax_unece_codes(customer, ... |
+| RULE_037 | METHOD_RENAME   | `account_edi._retry_edi_documents_error_hook()` |
+| RULE_038 | METHOD_RENAME   | `stock_account._stock_account_prepare_anglo_saxon_ou... |
+| RULE_039 | METHOD_RENAME   | `mail.thread._get_allowed_message_post_params()` |
+| RULE_040 | METHOD_RENAME   | `mail.thread._get_allowed_message_update_params()` |
+| RULE_041 | METHOD_RENAME   | `stock._get_domain_locations_new()` return type |
+| RULE_042 | METHOD_RENAME   | `analytic._read_group_groupby(groupby_spec, query)` |
+| RULE_043 | METHOD_SIG      | `_compute_reference_prefix(self, provider_code, sepa... |
+| RULE_044 | METHOD_SIG      | `_setup_provider(self, provider_code)` |
+| RULE_045 | METHOD_SIG      | `name_search(self, name='', args=None, ...)` |
+| RULE_046 | METHOD_SIG      | `_notify_get_recipients_groups(self, message, model_... |
+| RULE_047 | METHOD_SIG      | `_notify_get_recipients(self, message, msg_vals, **k... |
+| RULE_048 | METHOD_SIG      | `_message_compute_author(self, author_id=None, email... |
+| RULE_049 | METHOD_SIG      | `_notify_thread_by_email(self, message, recipients_d... |
+| RULE_050 | METHOD_SIG      | `_notify_by_email_get_base_mail_values(self, message... |
+| RULE_051 | METHOD_SIG      | `_notify_by_web_push_prepare_payload(self, message, ... |
+| RULE_052 | METHOD_SIG      | `_message_update_content(self, message, body, ...)` ... |
+| RULE_053 | METHOD_SIG      | `_thread_to_store(self, store, /, *, fields=None, re... |
+| RULE_054 | METHOD_SIG      | `_get_thread_with_access(self, thread_id, mode="read... |
+| RULE_055 | METHOD_SIG      | `_get_product_catalog_record_lines(self, product_ids... |
+| RULE_056 | METHOD_SIG      | `crm.lead._handle_won_lost(self, vals)` |
+| RULE_057 | METHOD_SIG      | `crm.lead._find_matching_partner(self, email_only=Fa... |
+| RULE_058 | METHOD_SIG      | `stock.move._action_confirm(self, merge=True, merge_... |
+| RULE_059 | METHOD_SIG      | `purchase.order.action_create_invoice(self)` |
+| RULE_060 | METHOD_SIG      | `sale.order._send_order_notification_mail(self, mail... |
+| RULE_061 | METHOD_SIG      | `_field_to_sql(self, alias, fname, query, flush=True)` |
+| RULE_062 | SECURITY        | `<field name="users" .../>` on `res.groups` |
+| RULE_063 | SECURITY        | `model_mail_wizard_invite` in ir.model.access.csv |
+| RULE_064 | SECURITY        | `model_mail_resend_message` or `model_mail_resend_pa... |
+| RULE_065 | SECURITY        | `model_stock_quant_package` in ir.model.access.csv |
+| RULE_066 | SECURITY        | `model_stock_change_product_qty` or `model_stock_tra... |
+| RULE_067 | SECURITY        | `<record model="ir.module.category" id="base.module_... |
+| RULE_068 | XML_ID          | `stock.menu_product_uom_categ_form_action` reference |
+| RULE_069 | XML_ID          | `account.action_move_out_refund_type` action |
+| RULE_070 | MODEL_RENAME    | Any module that subclasses an Odoo model using a sho... |
+| RULE_071 | MANIFEST        | Asset references to `web/static/src/legacy/scss/*.scss` |
+| RULE_072 | MANIFEST        | `'web.assets_frontend'` with `portal.js`, `portal_si... |
+| RULE_073 | MANIFEST        | References to `mail/static/src/utils/common/**/*` |
+| RULE_074 | MANIFEST        | `('include', 'mail.assets_discuss_public')` with spe... |
+| RULE_075 | FIELD_RENAME    | `res.config.settings.module_delivery_fedex` |
+| RULE_076 | FIELD_RENAME    | `stock.move.line.product_packaging_quantity` (differ... |
+| RULE_077 | FIELD_REMOVE    | `sale.order.line.sale_line_warn` + `sale_line_warn_m... |
+| RULE_078 | FIELD_RENAME    | `product.template.uom_name` string label |
+| RULE_079 | METHOD_SIG      | `crm.lead._pls_get_lead_pls_values(self, domain=[])` |
+| RULE_080 | METHOD_SIG      | `portal.mixin._get_thread_with_access()` usage with ... |
+| RULE_081 | FIELD_REMOVE    | `hr.employee.base` model inheritance |
+| RULE_082 | FIELD_REMOVE    | `account.move.partner_credit` field |
+| RULE_083 | MANIFEST        | Reference to `web/static/src/polyfills/clipboard.js` |
+| RULE_084 | FIELD_RENAME    | `sale.order.option_ids` One2many on `sale.order` |
+| RULE_085 | FIELD_RENAME    | `sale.order.template.sale_order_template_option_ids` |
+| RULE_086 | METHOD_SIG      | `account_edi_ubl_cii._ubl_add_invoice_delivery_nodes... |
+| RULE_087 | FIELD_REMOVE    | `payment.provider.onboarding.wizard` usage |
+| RULE_088 | FIELD_REMOVE    | `onboarding.onboarding.step` inheritance in payment ... |
+| RULE_089 | FIELD_RENAME    | `purchase.order.mail_reminder_confirmed` field |
